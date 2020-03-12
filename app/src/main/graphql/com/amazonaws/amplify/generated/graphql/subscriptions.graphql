@@ -1,0 +1,97 @@
+# this is an auto generated file. This will be overwritten
+subscription OnCreateUser {
+  onCreateUser {
+    id
+    email
+    username
+  }
+}
+subscription OnUpdateUser {
+  onUpdateUser {
+    id
+    email
+    username
+  }
+}
+subscription OnDeleteUser {
+  onDeleteUser {
+    id
+    email
+    username
+  }
+}
+subscription OnCreateFriend {
+  onCreateFriend {
+    id
+  }
+}
+subscription OnUpdateFriend {
+  onUpdateFriend {
+    id
+  }
+}
+subscription OnDeleteFriend {
+  onDeleteFriend {
+    id
+  }
+}
+subscription OnCreateChat {
+  onCreateChat {
+    id
+  }
+}
+subscription OnUpdateChat {
+  onUpdateChat {
+    id
+  }
+}
+subscription OnDeleteChat {
+  onDeleteChat {
+    id
+  }
+}
+subscription OnCreateMessage {
+  onCreateMessage {
+    chat_id
+    date_sent
+  }
+}
+subscription OnUpdateMessage {
+  onUpdateMessage {
+    chat_id
+    date_sent
+  }
+}
+subscription OnDeleteMessage {
+  onDeleteMessage {
+    chat_id
+    date_sent
+  }
+}
+subscription OnCreateChallenge {
+  onCreateChallenge {
+    challengee
+    challenge_id
+    date_sent
+    date_requested
+    challenger
+  }
+}
+subscription OnUpdateChallenge {
+  onUpdateChallenge {
+    challengee
+    challenge_id
+    date_sent
+    date_requested
+    challenger
+  }
+}
+subscription OnDeleteChallenge {
+  onDeleteChallenge {
+    challengee
+    challenge_id
+    date_sent
+    date_requested
+    challenger
+  }
+}

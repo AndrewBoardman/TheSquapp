@@ -1,0 +1,23 @@
+{
+    "thesquapp": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-thesquapp-thesquapp-145206-authRole",
+            "UnauthRoleArn": "arn:aws:iam::972467862180:role/amplify-thesquapp-thesquapp-145206-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::972467862180:role/amplify-thesquapp-thesquapp-145206-authRole",
+            "Region": "eu-west-1",
+            "DeploymentBucketName": "amplify-thesquapp-thesquapp-145206-deployment",
+            "UnauthRoleName": "amplify-thesquapp-thesquapp-145206-unauthRole",
+            "StackName": "amplify-thesquapp-thesquapp-145206",
+            "StackId": "arn:aws:cloudformation:eu-west-1:972467862180:stack/amplify-thesquapp-thesquapp-145206/a4ff1380-5c84-11ea-94c2-06527026dd82",
+            "AmplifyAppId": "d3fd5rs9jnhoc8"
+        },
+        "categories": {
+            "auth": {
+                "thesquappresource": {
+                    "googleClientId": "149135021189-qjh5egoh487008k3r34cp4rgrvcgb23t.apps.googleusercontent.com",
+                    "googleAndroid": "149135021189-2a6tltn93p47hemqjd2om0cg1r36o0il.apps.googleusercontent.com"
+                }
+            }
+        }
+    }
+}

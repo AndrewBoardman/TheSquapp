@@ -1,0 +1,26 @@
+type user @model { 
+  id: ID!
+  email: String
+  username: String
+}
+
+type friend @model {
+  id: ID!
+}
+
+type chat @model {
+  id: ID!
+}
+
+type message @model {
+  chat_id: String!
+  date_sent: String!
+}
+
+type challenge @model {
+  challengee: String!
+  challenge_id: String
+  date_sent: String
+  date_requested: String
+  challenger: String
+}

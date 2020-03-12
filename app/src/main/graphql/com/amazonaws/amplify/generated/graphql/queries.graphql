@@ -1,0 +1,100 @@
+# this is an auto generated file. This will be overwritten
+query GetUser($id: ID!) {
+  getUser(id: $id) {
+    id
+    email
+    username
+  }
+}
+query ListUsers(
+  $filter: ModeluserFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      email
+      username
+    }
+    nextToken
+  }
+}
+query GetFriend($id: ID!) {
+  getFriend(id: $id) {
+    id
+  }
+}
+query ListFriends(
+  $filter: ModelfriendFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listFriends(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+    }
+    nextToken
+  }
+}
+query GetChat($id: ID!) {
+  getChat(id: $id) {
+    id
+  }
+}
+query ListChats(
+  $filter: ModelchatFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listChats(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+    }
+    nextToken
+  }
+}
+query GetMessage($id: ID!) {
+  getMessage(id: $id) {
+    chat_id
+    date_sent
+  }
+}
+query ListMessages(
+  $filter: ModelmessageFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listMessages(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      chat_id
+      date_sent
+    }
+    nextToken
+  }
+}
+query GetChallenge($id: ID!) {
+  getChallenge(id: $id) {
+    challengee
+    challenge_id
+    date_sent
+    date_requested
+    challenger
+  }
+}
+query ListChallenges(
+  $filter: ModelchallengeFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listChallenges(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      challengee
+      challenge_id
+      date_sent
+      date_requested
+      challenger
+    }
+    nextToken
+  }
+}

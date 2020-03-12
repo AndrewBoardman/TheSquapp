@@ -1,0 +1,142 @@
+# this is an auto generated file. This will be overwritten
+mutation CreateUser(
+  $input: CreateUserInput!
+  $condition: ModeluserConditionInput
+) {
+  createUser(input: $input, condition: $condition) {
+    id
+    email
+    username
+  }
+}
+mutation UpdateUser(
+  $input: UpdateUserInput!
+  $condition: ModeluserConditionInput
+) {
+  updateUser(input: $input, condition: $condition) {
+    id
+    email
+    username
+  }
+}
+mutation DeleteUser(
+  $input: DeleteUserInput!
+  $condition: ModeluserConditionInput
+) {
+  deleteUser(input: $input, condition: $condition) {
+    id
+    email
+    username
+  }
+}
+mutation CreateFriend(
+  $input: CreateFriendInput!
+  $condition: ModelfriendConditionInput
+) {
+  createFriend(input: $input, condition: $condition) {
+    id
+  }
+}
+mutation UpdateFriend(
+  $input: UpdateFriendInput!
+  $condition: ModelfriendConditionInput
+) {
+  updateFriend(input: $input, condition: $condition) {
+    id
+  }
+}
+mutation DeleteFriend(
+  $input: DeleteFriendInput!
+  $condition: ModelfriendConditionInput
+) {
+  deleteFriend(input: $input, condition: $condition) {
+    id
+  }
+}
+mutation CreateChat(
+  $input: CreateChatInput!
+  $condition: ModelchatConditionInput
+) {
+  createChat(input: $input, condition: $condition) {
+    id
+  }
+}
+mutation UpdateChat(
+  $input: UpdateChatInput!
+  $condition: ModelchatConditionInput
+) {
+  updateChat(input: $input, condition: $condition) {
+    id
+  }
+}
+mutation DeleteChat(
+  $input: DeleteChatInput!
+  $condition: ModelchatConditionInput
+) {
+  deleteChat(input: $input, condition: $condition) {
+    id
+  }
+}
+mutation CreateMessage(
+  $input: CreateMessageInput!
+  $condition: ModelmessageConditionInput
+) {
+  createMessage(input: $input, condition: $condition) {
+    chat_id
+    date_sent
+  }
+}
+mutation UpdateMessage(
+  $input: UpdateMessageInput!
+  $condition: ModelmessageConditionInput
+) {
+  updateMessage(input: $input, condition: $condition) {
+    chat_id
+    date_sent
+  }
+}
+mutation DeleteMessage(
+  $input: DeleteMessageInput!
+  $condition: ModelmessageConditionInput
+) {
+  deleteMessage(input: $input, condition: $condition) {
+    chat_id
+    date_sent
+  }
+}
+mutation CreateChallenge(
+  $input: CreateChallengeInput!
+  $condition: ModelchallengeConditionInput
+) {
+  createChallenge(input: $input, condition: $condition) {
+    challengee
+    challenge_id
+    date_sent
+    date_requested
+    challenger
+  }
+}
+mutation UpdateChallenge(
+  $input: UpdateChallengeInput!
+  $condition: ModelchallengeConditionInput
+) {
+  updateChallenge(input: $input, condition: $condition) {
+    challengee
+    challenge_id
+    date_sent
+    date_requested
+    challenger
+  }
+}
+mutation DeleteChallenge(
+  $input: DeleteChallengeInput!
+  $condition: ModelchallengeConditionInput
+) {
+  deleteChallenge(input: $input, condition: $condition) {
+    challengee
+    challenge_id
+    date_sent
+    date_requested
+    challenger
+  }
+}

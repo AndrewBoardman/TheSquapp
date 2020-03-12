@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#864E21</color>
+    <color name="colorPrimaryDark">#CBDDDB</color>
+    <color name="colorAccent">#000000</color>
+    <color name="colorNice">#B4DAE9DA</color>
+    <color name="colorSquapp">#864E21</color>
+    <color name="colorLoginbutton">#B4A01E</color>
+    <color name="colorRecyclerBack">#FFFFFF</color>
+</resources>
+
