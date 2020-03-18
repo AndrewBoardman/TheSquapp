@@ -17,10 +17,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".SeeChallengesActivity"
+        <activity android:name=".ChallengeChatActitivty"
+            android:launchMode="singleTask"
+            android:parentActivityName=".StartScreen"/>
+
+        <activity
+            android:name=".SeeChallengesActivity"
             android:parentActivityName=".StartScreen" />
 
         <activity android:name=".StartScreen" />
+
         <activity
             android:name=".ChallengeActivity"
             android:launchMode="singleTask"
@@ -31,8 +37,11 @@
         <activity
             android:name=".ResetPassword"
             android:parentActivityName=".AuthenticatorActivity" />
+
         <activity android:name=".RequestNewCode" />
+
         <activity android:name=".VerifyActivity" />
+
         <activity
             android:name=".SignUpActivity"
             android:parentActivityName=".AuthenticatorActivity" />

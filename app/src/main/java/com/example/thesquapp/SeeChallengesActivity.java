@@ -44,7 +44,6 @@ public class SeeChallengesActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-
         // Query list data when we return to the screen
         query();
     }

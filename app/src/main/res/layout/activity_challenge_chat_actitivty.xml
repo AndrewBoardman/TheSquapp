@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StartScreen">
+    tools:context=".ChallengeChatActitivty">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,24 +26,24 @@
         android:layout_marginTop="60dp"
         android:layout_marginRight="70dp"
         android:background="@drawable/btn_signup"
-        android:text="see players"
+        android:text="start chat"
         android:textColor="@color/colorAccent"
-        android:id="@+id/see_players"
-        android:onClick="seePlayersBtn"
+        android:id="@+id/new_challenge"
+        android:onClick="newChallengeBtn"
         />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/see_players"
+        android:layout_below="@+id/new_challenge"
         android:layout_marginTop="20dp"
         android:layout_marginRight="70dp"
         android:background="@drawable/btn_signup"
-        android:text="SEE CHALLENGES"
+        android:text="challenge player"
         android:textColor="@color/colorAccent"
-        android:id="@+id/see_challenges"
-        android:onClick="seeChallengesBtn"
+        android:id="@+id/open_chat"
+        android:onClick="challengePlayerBtn"
         />
 
 </RelativeLayout>

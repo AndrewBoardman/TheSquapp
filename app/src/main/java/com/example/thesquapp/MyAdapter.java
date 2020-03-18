@@ -2,7 +2,6 @@ package com.example.thesquapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,21 +11,10 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.amazonaws.amplify.generated.graphql.CreateChallengeMutation;
 import com.amazonaws.amplify.generated.graphql.ListUsersQuery;
-import com.amazonaws.mobile.client.AWSMobileClient;
-import com.apollographql.apollo.GraphQLCall;
-import com.apollographql.apollo.api.Response;
-import com.apollographql.apollo.exception.ApolloException;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.annotation.Nonnull;
-
-import type.CreateChallengeInput;
-
-import static com.amazonaws.mobile.auth.core.internal.util.ThreadUtils.runOnUiThread;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
@@ -34,13 +22,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private Context context;
     private LayoutInflater mInflater;
     private int selected_position = -1;
+    public static String challengeeName;
 
     // data is passed into the constructor
    MyAdapter(Context context) {
-       this.mInflater = LayoutInflater.from(context);
-       this.context = context;
+        this.mInflater = LayoutInflater.from(context);
+        this.context = context;
 
-   }
+    }
 
     // inflates the row layout from xml when needed
     @Override
@@ -58,8 +47,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         if (selected_position == position) {
             // do your stuff here like
             //Change selected item background color and Show sub item views
-
-            Toast.makeText(context,"you clicked an item " + mData.get(position).id(), Toast.LENGTH_LONG).show();
+            challengeeName = mData.get(position).id();
+             Toast.makeText(context,"you clicked an item " + mData.get(position).id(), Toast.LENGTH_LONG).show();
+           /* challengeeName = mData.get(position).id();
 
             CreateChallengeInput input = CreateChallengeInput.builder()
                     .challengee(mData.get(position).id())
@@ -74,8 +64,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                     .input(input)
                     .build();
             ClientFactory.appSyncClient().mutate(addChallengeMutation).enqueue(mutateCallback);
-
-            Intent intent = new Intent(context.getApplicationContext(), ChallengeActivity.class);
+*/
+            Intent intent = new Intent(context.getApplicationContext(), ChallengeChatActitivty.class);
             context.startActivity(intent);
 
         } else {
@@ -94,19 +84,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 }
                 selected_position = position;
                 notifyDataSetChanged();
-
             }
         });
-    }
 
-    private GraphQLCall.Callback<CreateChallengeMutation.Data> mutateCallback = new GraphQLCall.Callback<CreateChallengeMutation.Data>() {
+
+ /*   private GraphQLCall.Callback<CreateChallengeMutation.Data> mutateCallback = new GraphQLCall.Callback<CreateChallengeMutation.Data>() {
         @Override
         public void onResponse(@Nonnull final Response<CreateChallengeMutation.Data> response) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    //Toast.makeText(AddPetActivity.this, "Added pet", Toast.LENGTH_SHORT).show();
-                    //AddPetActivity.this.finish();
                 }
             });
         }
@@ -117,11 +104,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 @Override
                 public void run() {
                     Log.e("", "Failed to perform AddPetMutation", e);
-                    //Toast.makeText(AddPetActivity.this, "Failed to add pet", Toast.LENGTH_SHORT).show();
-                    //AddPetActivity.this.finish();
                 }
             });
-        }
+        } */
     };
 
     // total number of rows
