@@ -4,6 +4,8 @@ query GetUser($id: ID!) {
     id
     email
     username
+    name
+    photo
   }
 }
 query ListUsers(
@@ -16,6 +18,8 @@ query ListUsers(
       id
       email
       username
+      name
+      photo
     }
     nextToken
   }
@@ -80,6 +84,7 @@ query GetChallenge($id: ID!) {
     date_sent
     date_requested
     challenger
+    status
   }
 }
 query ListChallenges(
@@ -94,6 +99,7 @@ query ListChallenges(
       date_sent
       date_requested
       challenger
+      status
     }
     nextToken
   }

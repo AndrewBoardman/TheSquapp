@@ -60,6 +60,10 @@
 		"dynamo2feaf2ab": {
 			"service": "DynamoDB",
 			"providerPlugin": "awscloudformation"
+		},
+		"TheSquappResources": {
+			"service": "S3",
+			"providerPlugin": "awscloudformation"
 		}
 	}
 }

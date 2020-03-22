@@ -34,6 +34,7 @@ public class SignUpActivity extends AppCompatActivity {
         final EditText signup_password = findViewById(R.id.signup_password);
         final EditText signup_repeat_password = findViewById(R.id.signup_repeat_password);
 
+        final String name = String.valueOf(signup_name.getText());
         final String username = String.valueOf(signup_username.getText());
         final String password = String.valueOf(signup_password.getText());
         final String email = String.valueOf(signup_email.getText());
@@ -42,6 +43,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         final Map<String, String> attributes = new HashMap<>();
         attributes.put("email", email);
+        attributes.put("name", name);
 
         AWSMobileClient.getInstance().signUp(username, password, attributes, null, new Callback<SignUpResult>() {
             @Override

@@ -16,17 +16,27 @@
             android:layout_height="match_parent"
             android:alpha="0.1"
             android:background="@color/colorPrimaryDark" />
-    </LinearLayout>>
+    </LinearLayout>
 
+    <ImageView
+        android:layout_marginTop="60dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/profilePic"
+        android:onClick="selectProfilePic"
+        android:src="@drawable/userimage"
+        />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="70dp"
         android:background="@drawable/btn_signup"
         android:text="see players"
+        android:layout_below="@id/profilePic"
         android:textColor="@color/colorAccent"
         android:id="@+id/see_players"
         android:onClick="seePlayersBtn"
@@ -44,6 +54,20 @@
         android:textColor="@color/colorAccent"
         android:id="@+id/see_challenges"
         android:onClick="seeChallengesBtn"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/see_challenges"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="70dp"
+        android:background="@drawable/btn_signup"
+        android:text="SIGN OUT"
+        android:textColor="@color/colorAccent"
+        android:id="@+id/sign_out"
+        android:onClick="signOutBtn"
         />
 
 </RelativeLayout>

@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.amazonaws.mobile.client.AWSMobileClient;
 import com.amazonaws.mobile.client.Callback;
-import com.amazonaws.mobile.client.UserStateDetails;
 import com.amazonaws.mobile.client.results.SignInResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -38,7 +37,7 @@ public class AuthenticatorActivity extends AppCompatActivity {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        AWSMobileClient.getInstance().initialize(getApplicationContext(), new Callback<UserStateDetails>() {
+       /* AWSMobileClient.getInstance().initialize(getApplicationContext(), new Callback<UserStateDetails>() {
 
                     @Override
                     public void onResult(UserStateDetails userStateDetails) {
@@ -50,7 +49,7 @@ public class AuthenticatorActivity extends AppCompatActivity {
                         Log.e("INIT", "Initialization error.", e);
                     }
                     }
-        );
+        ); */
     }
 
     @Override
@@ -104,7 +103,6 @@ public class AuthenticatorActivity extends AppCompatActivity {
                 Log.e(TAG, "Sign-in error", e);
             }
         });
-
     }
 
     public void signUpbtn(View view) {

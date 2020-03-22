@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,7 +35,6 @@ public class MyAdapterChallenges extends RecyclerView.Adapter<MyAdapterChallenge
     MyAdapterChallenges(Context context) {
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
-
     }
 
     // inflates the row layout from xml when needed
@@ -49,30 +49,12 @@ public class MyAdapterChallenges extends RecyclerView.Adapter<MyAdapterChallenge
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.bindData(mData.get(position));
 
+        if (selected_position == position) {
 
-       /* if (selected_position == position) {
-            // do your stuff here like
-            //Change selected item background color and Show sub item views
-
-            Toast.makeText(context,"you clicked an item " + mData.get(position).id(), Toast.LENGTH_LONG).show();
-
-            CreateChallengeInput input = CreateChallengeInput.builder()
-                    .challengee(mData.get(position).id())
-                    .challenger(AWSMobileClient.getInstance().getUsername())
-                    //.challenge_id("titz")
-                    //.challenger(mData.get(position).id())
-                    //.challengee()
-                    //.date_sent();
-                    .build();
-
-            CreateChallengeMutation addChallengeMutation = CreateChallengeMutation.builder()
-                    .input(input)
-                    .build();
-            ClientFactory.appSyncClient().mutate(addChallengeMutation).enqueue(mutateCallback);
-
-            Intent intent = new Intent(context.getApplicationContext(), ChallengeActivity.class);
-            context.startActivity(intent);
-
+            //challengeeName = mData.get(position).id();
+            Toast.makeText(context, "you clicked an item " + mData.get(position).challengee(), Toast.LENGTH_LONG).show();
+            //Intent intent = new Intent(context.getApplicationContext(), ChallengeChatActitivty.class);
+            //context.startActivity(intent);
         } else {
             // do your stuff here like
             //Change  unselected item background color and Hide sub item views
@@ -82,16 +64,15 @@ public class MyAdapterChallenges extends RecyclerView.Adapter<MyAdapterChallenge
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(selected_position== position){
-                    selected_position=-1;
+                if (selected_position == position) {
+                    selected_position = -1;
                     notifyDataSetChanged();
                     return;
                 }
                 selected_position = position;
                 notifyDataSetChanged();
-
             }
-        });  */
+        });
     }
 
     private GraphQLCall.Callback<CreateChallengeMutation.Data> mutateCallback = new GraphQLCall.Callback<CreateChallengeMutation.Data>() {

@@ -1,6 +1,6 @@
 {
     "identityPoolName": "TheSquappIDPool",
-    "allowUnauthenticatedIdentities": true,
+    "allowUnauthenticatedIdentities": false,
     "resourceNameTruncated": "thesqu046708a0",
     "userPoolName": "TheSquappUserPool",
     "autoVerifiedAttributes": [

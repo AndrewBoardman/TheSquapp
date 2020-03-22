@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.amazonaws.amplify.generated.graphql.ListUsersQuery;
+import com.amazonaws.mobile.client.AWSMobileClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public static String challengeeName;
 
     // data is passed into the constructor
-   MyAdapter(Context context) {
+    MyAdapter(Context context) {
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
 
@@ -41,30 +42,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.bindData(mData.get(position));
 
+        holder.bindData(mData.get(position));
 
         if (selected_position == position) {
             // do your stuff here like
             //Change selected item background color and Show sub item views
             challengeeName = mData.get(position).id();
              Toast.makeText(context,"you clicked an item " + mData.get(position).id(), Toast.LENGTH_LONG).show();
-           /* challengeeName = mData.get(position).id();
 
-            CreateChallengeInput input = CreateChallengeInput.builder()
-                    .challengee(mData.get(position).id())
-                    .challenger(AWSMobileClient.getInstance().getUsername())
-                    //.challenge_id("titz")
-                    //.challenger(mData.get(position).id())
-                    //.challengee()
-                    //.date_sent();
-                    .build();
-
-            CreateChallengeMutation addChallengeMutation = CreateChallengeMutation.builder()
-                    .input(input)
-                    .build();
-            ClientFactory.appSyncClient().mutate(addChallengeMutation).enqueue(mutateCallback);
-*/
             Intent intent = new Intent(context.getApplicationContext(), ChallengeChatActitivty.class);
             context.startActivity(intent);
 
@@ -87,26 +73,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             }
         });
 
-
- /*   private GraphQLCall.Callback<CreateChallengeMutation.Data> mutateCallback = new GraphQLCall.Callback<CreateChallengeMutation.Data>() {
-        @Override
-        public void onResponse(@Nonnull final Response<CreateChallengeMutation.Data> response) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                }
-            });
-        }
-
-        @Override
-        public void onFailure(@Nonnull final ApolloException e) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Log.e("", "Failed to perform AddPetMutation", e);
-                }
-            });
-        } */
     };
 
     // total number of rows
@@ -133,9 +99,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             linearLayout = (LinearLayout) itemView.findViewById(R.id.linearLayout);
         }
 
-       public  void bindData(ListUsersQuery.Item item) {
-            txt_username.setText(item.id());
-            txt_id.setText(item.email());
+       public void bindData(ListUsersQuery.Item item) {
+            if (!item.id().equals(AWSMobileClient.getInstance().getUsername())){
+                txt_username.setText(item.id());
+                txt_id.setText(item.email());
+            } else {
+                itemView.setVisibility(View.GONE);
+                itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
+            }
 
         }
     }

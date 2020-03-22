@@ -16,41 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".ChallengeChatActitivty"
-            android:launchMode="singleTask"
-            android:parentActivityName=".StartScreen"/>
-
-        <activity
-            android:name=".SeeChallengesActivity"
-            android:parentActivityName=".StartScreen" />
-
-        <activity android:name=".StartScreen" />
-
-        <activity
-            android:name=".ChallengeActivity"
-            android:launchMode="singleTask"
-            android:parentActivityName=".MainActivity" />
-
-        <service android:name="org.eclipse.paho.android.service.MqttService" />
-
-        <activity
-            android:name=".ResetPassword"
-            android:parentActivityName=".AuthenticatorActivity" />
-
-        <activity android:name=".RequestNewCode" />
-
-        <activity android:name=".VerifyActivity" />
-
-        <activity
-            android:name=".SignUpActivity"
-            android:parentActivityName=".AuthenticatorActivity" />
-
-        <activity
-            android:name=".MainActivity"
-            android:parentActivityName=".StartScreen" />
-
-        <activity android:name=".AuthenticatorActivity">
+        <activity android:name=".ChoosePhotoActivity"></activity>
+        <activity android:name=".AuthCheck">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
@@ -58,6 +25,34 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name="org.eclipse.paho.android.service.MqttService" />
+        <service android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService" />
+
+        <activity
+            android:name=".ChallengeChatActitivty"
+            android:launchMode="singleTask"
+            android:parentActivityName=".StartScreen" />
+        <activity
+            android:name=".SeeChallengesActivity"
+            android:parentActivityName=".StartScreen" />
+        <activity android:name=".StartScreen" />
+        <activity
+            android:name=".ChallengeActivity"
+            android:launchMode="singleTask"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ResetPassword"
+            android:parentActivityName=".AuthenticatorActivity" />
+        <activity android:name=".RequestNewCode" />
+        <activity android:name=".VerifyActivity" />
+        <activity
+            android:name=".SignUpActivity"
+            android:parentActivityName=".AuthenticatorActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:parentActivityName=".StartScreen" />
+        <activity android:name=".AuthenticatorActivity" />
     </application>
 
 </manifest>

@@ -38,6 +38,7 @@ public class ChallengeChatActitivty extends AppCompatActivity {
         CreateChallengeInput input = CreateChallengeInput.builder()
                 .challengee(MyAdapter.challengeeName)
                 .challenger(AWSMobileClient.getInstance().getUsername())
+                .status("pending")
                 //.challenge_id("titz")
                 //.challenger(mData.get(position).id())
                 //.challengee()

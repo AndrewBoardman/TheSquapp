@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChallengeChatActitivty">
+    tools:context=".ChoosePhotoActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,11 +19,12 @@
     </LinearLayout>
 
     <ImageView
-        android:layout_marginTop="30dp"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_centerHorizontal="true"
-        android:id="@+id/playerProfilePic"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/btn_signup"
+        android:id="@+id/chooseProfilePic"
         android:src="@drawable/userimage"
         />
 
@@ -34,39 +35,25 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="70dp"
         android:background="@drawable/btn_signup"
-        android:text="start chat"
+        android:text="CHOOSE PHOTO"
+        android:layout_below="@+id/chooseProfilePic"
         android:textColor="@color/colorAccent"
-        android:id="@+id/new_challenge"
-        android:layout_below="@+id/playerProfilePic"
-        android:onClick="newChallengeBtn"
+        android:id="@+id/choose_photo"
+        android:onClick="choosePhotoBtn"
         />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/new_challenge"
+        android:layout_below="@+id/choose_photo"
         android:layout_marginTop="20dp"
         android:layout_marginRight="70dp"
         android:background="@drawable/btn_signup"
-        android:text="challenge player"
+        android:text="SAVE AND RETURN"
         android:textColor="@color/colorAccent"
-        android:id="@+id/open_chat"
-        android:onClick="challengePlayerBtn"
-    />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/open_chat"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="70dp"
-        android:background="@drawable/btn_signup"
-        android:text="match history"
-        android:textColor="@color/colorAccent"
-        android:id="@+id/view_match_history"
-        android:onClick="viewHistoryBtn"
-    />
+        android:id="@+id/choose_photo_savereturn"
+        android:onClick="cPhSavRet"
+        />
 
 </RelativeLayout>

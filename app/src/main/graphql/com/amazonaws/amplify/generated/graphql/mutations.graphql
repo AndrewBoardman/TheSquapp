@@ -7,6 +7,8 @@ mutation CreateUser(
     id
     email
     username
+    name
+    photo
   }
 }
 mutation UpdateUser(
@@ -17,6 +19,8 @@ mutation UpdateUser(
     id
     email
     username
+    name
+    photo
   }
 }
 mutation DeleteUser(
@@ -27,6 +31,8 @@ mutation DeleteUser(
     id
     email
     username
+    name
+    photo
   }
 }
 mutation CreateFriend(
@@ -114,6 +120,7 @@ mutation CreateChallenge(
     date_sent
     date_requested
     challenger
+    status
   }
 }
 mutation UpdateChallenge(
@@ -126,6 +133,7 @@ mutation UpdateChallenge(
     date_sent
     date_requested
     challenger
+    status
   }
 }
 mutation DeleteChallenge(
@@ -138,5 +146,6 @@ mutation DeleteChallenge(
     date_sent
     date_requested
     challenger
+    status
   }
 }

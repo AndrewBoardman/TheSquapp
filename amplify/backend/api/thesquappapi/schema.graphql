@@ -2,6 +2,8 @@ type user @model {
   id: ID!
   email: String
   username: String
+  name: String
+  photo: String
 }
 
 type friend @model {
@@ -23,4 +25,5 @@ type challenge @model {
   date_sent: String
   date_requested: String
   challenger: String
+  status: String
 }

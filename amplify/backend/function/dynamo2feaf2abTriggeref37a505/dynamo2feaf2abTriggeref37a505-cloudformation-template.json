@@ -1,236 +1,240 @@
 {
-    "AWSTemplateFormatVersion": "2010-09-09",
-    "Description": "Lambda resource stack creation using Amplify CLI",
-    "Parameters": {
-        "env": {
-            "Type": "String"
-        },
-        "storagedynamo2feaf2abName": {
-            "Type": "String",
-            "Default": "storagedynamo2feaf2abName"
-        },
-        "storagedynamo2feaf2abArn": {
-            "Type": "String",
-            "Default": "storagedynamo2feaf2abArn"
-        },
-        "storagedynamo2feaf2abStreamArn": {
-            "Type": "String",
-            "Default": "storagedynamo2feaf2abArn"
-        }
-    },
-    "Conditions": {
-        "ShouldNotCreateEnvResources": {
-            "Fn::Equals": [
-                {
-                    "Ref": "env"
-                },
-                "NONE"
-            ]
-        }
-    },
-    "Resources": {
-        "LambdaFunction": {
-            "Type": "AWS::Lambda::Function",
-            "Metadata": {
-                "aws:asset:path": "./src",
-                "aws:asset:property": "Code"
-            },
-            "Properties": {
-                "Handler": "index.handler",
-                "FunctionName": {
-                    "Fn::If": [
-                        "ShouldNotCreateEnvResources",
-                        "dynamo2feaf2abTriggeref37a505",
-                        {
-                            "Fn::Join": [
-                                "",
-                                [
-                                    "dynamo2feaf2abTriggeref37a505",
-                                    "-",
-                                    {
-                                        "Ref": "env"
-                                    }
-                                ]
-                            ]
-                        }
-                    ]
-                },
-                "Environment": {
-                    "Variables": {
-                        "ENV": {
-                            "Ref": "env"
-                        }
-                    }
-                },
-                "Role": {
-                    "Fn::GetAtt": [
-                        "LambdaExecutionRole",
-                        "Arn"
-                    ]
-                },
-                "Runtime": "nodejs10.x",
-                "Timeout": "25"
-            }
-        },
-        "LambdaExecutionRole": {
-            "Type": "AWS::IAM::Role",
-            "Properties": {
-                "RoleName": {
-                    "Fn::If": [
-                        "ShouldNotCreateEnvResources",
-                        "dynamo2feaf2abLambdaRoleef37a505",
-                        {
-                            "Fn::Join": [
-                                "",
-                                [
-                                    "dynamo2feaf2abLambdaRoleef37a505",
-                                    "-",
-                                    {
-                                        "Ref": "env"
-                                    }
-                                ]
-                            ]
-                        }
-                    ]
-                },
-                "AssumeRolePolicyDocument": {
-                    "Version": "2012-10-17",
-                    "Statement": [
-                        {
-                            "Effect": "Allow",
-                            "Principal": {
-                                "Service": [
-                                    "lambda.amazonaws.com"
-                                ]
-                            },
-                            "Action": [
-                                "sts:AssumeRole"
-                            ]
-                        }
-                    ]
-                }
-            }
-        },
-        "lambdaexecutionpolicy": {
-            "DependsOn": [
-                "LambdaExecutionRole"
-            ],
-            "Type": "AWS::IAM::Policy",
-            "Properties": {
-                "PolicyName": "lambda-execution-policy",
-                "Roles": [
-                    {
-                        "Ref": "LambdaExecutionRole"
-                    }
-                ],
-                "PolicyDocument": {
-                    "Version": "2012-10-17",
-                    "Statement": [
-                        {
-                            "Effect": "Allow",
-                            "Action": [
-                                "logs:CreateLogGroup",
-                                "logs:CreateLogStream",
-                                "logs:PutLogEvents"
-                            ],
-                            "Resource": {
-                                "Fn::Sub": [
-                                    "arn:aws:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:*",
-                                    {
-                                        "region": {
-                                            "Ref": "AWS::Region"
-                                        },
-                                        "account": {
-                                            "Ref": "AWS::AccountId"
-                                        },
-                                        "lambda": {
-                                            "Ref": "LambdaFunction"
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    ]
-                }
-            }
-        },
-        "dynamo2feaf2abTriggerPolicy": {
-            "DependsOn": [
-                "LambdaExecutionRole"
-            ],
-            "Type": "AWS::IAM::Policy",
-            "Properties": {
-                "PolicyName": "lambda-trigger-policy",
-                "Roles": [
-                    {
-                        "Ref": "LambdaExecutionRole"
-                    }
-                ],
-                "PolicyDocument": {
-                    "Version": "2012-10-17",
-                    "Statement": [
-                        {
-                            "Effect": "Allow",
-                            "Action": [
-                                "dynamodb:DescribeStream",
-                                "dynamodb:GetRecords",
-                                "dynamodb:GetShardIterator",
-                                "dynamodb:ListStreams"
-                            ],
-                            "Resource": [
-                                {
-                                    "Ref": "storagedynamo2feaf2abStreamArn"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            }
-        },
-        "dynamo2feaf2abTrigger": {
-            "Type": "AWS::Lambda::EventSourceMapping",
-            "DependsOn": [
-                "dynamo2feaf2abTriggerPolicy"
-            ],
-            "Properties": {
-                "BatchSize": 100,
-                "Enabled": true,
-                "EventSourceArn": {
-                    "Ref": "storagedynamo2feaf2abStreamArn"
-                },
-                "FunctionName": {
-                    "Fn::GetAtt": [
-                        "LambdaFunction",
-                        "Arn"
-                    ]
-                },
-                "StartingPosition": "LATEST"
-            }
-        }
-    },
-    "Outputs": {
-        "Name": {
-            "Value": {
-                "Ref": "LambdaFunction"
-            }
-        },
-        "Arn": {
-            "Value": {
-                "Fn::GetAtt": [
-                    "LambdaFunction",
-                    "Arn"
-                ]
-            }
-        },
-        "Region": {
-            "Value": {
-                "Ref": "AWS::Region"
-            }
-        },
-        "LambdaExecutionRole": {
-            "Value": {
-                "Ref": "LambdaExecutionRole"
-            }
-        }
-    }
+	"AWSTemplateFormatVersion": "2010-09-09",
+	"Description": "Lambda resource stack creation using Amplify CLI",
+	"Parameters": {
+		"env": {
+			"Type": "String"
+		},
+		"storagedynamo2feaf2abName": {
+			"Type": "String",
+			"Default": "storagedynamo2feaf2abName"
+		},
+		"storagedynamo2feaf2abArn": {
+			"Type": "String",
+			"Default": "storagedynamo2feaf2abArn"
+		},
+		"storagedynamo2feaf2abStreamArn": {
+			"Type": "String",
+			"Default": "storagedynamo2feaf2abArn"
+		}
+	},
+	"Conditions": {
+		"ShouldNotCreateEnvResources": {
+			"Fn::Equals": [
+				{
+					"Ref": "env"
+				},
+				"NONE"
+			]
+		}
+	},
+	"Resources": {
+		"LambdaFunction": {
+			"Type": "AWS::Lambda::Function",
+			"Metadata": {
+				"aws:asset:path": "./src",
+				"aws:asset:property": "Code"
+			},
+			"Properties": {
+				"Handler": "index.handler",
+				"FunctionName": {
+					"Fn::If": [
+						"ShouldNotCreateEnvResources",
+						"dynamo2feaf2abTriggeref37a505",
+						{
+							"Fn::Join": [
+								"",
+								[
+									"dynamo2feaf2abTriggeref37a505",
+									"-",
+									{
+										"Ref": "env"
+									}
+								]
+							]
+						}
+					]
+				},
+				"Environment": {
+					"Variables": {
+						"ENV": {
+							"Ref": "env"
+						}
+					}
+				},
+				"Role": {
+					"Fn::GetAtt": [
+						"LambdaExecutionRole",
+						"Arn"
+					]
+				},
+				"Runtime": "nodejs10.x",
+				"Timeout": "25",
+				"Code": {
+					"S3Bucket": "amplify-thesquapp-thesquapp-145206-deployment",
+					"S3Key": "amplify-builds/dynamo2feaf2abTriggeref37a505-54734f372b517559454d-build.zip"
+				}
+			}
+		},
+		"LambdaExecutionRole": {
+			"Type": "AWS::IAM::Role",
+			"Properties": {
+				"RoleName": {
+					"Fn::If": [
+						"ShouldNotCreateEnvResources",
+						"dynamo2feaf2abLambdaRoleef37a505",
+						{
+							"Fn::Join": [
+								"",
+								[
+									"dynamo2feaf2abLambdaRoleef37a505",
+									"-",
+									{
+										"Ref": "env"
+									}
+								]
+							]
+						}
+					]
+				},
+				"AssumeRolePolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+							"Effect": "Allow",
+							"Principal": {
+								"Service": [
+									"lambda.amazonaws.com"
+								]
+							},
+							"Action": [
+								"sts:AssumeRole"
+							]
+						}
+					]
+				}
+			}
+		},
+		"lambdaexecutionpolicy": {
+			"DependsOn": [
+				"LambdaExecutionRole"
+			],
+			"Type": "AWS::IAM::Policy",
+			"Properties": {
+				"PolicyName": "lambda-execution-policy",
+				"Roles": [
+					{
+						"Ref": "LambdaExecutionRole"
+					}
+				],
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+							"Effect": "Allow",
+							"Action": [
+								"logs:CreateLogGroup",
+								"logs:CreateLogStream",
+								"logs:PutLogEvents"
+							],
+							"Resource": {
+								"Fn::Sub": [
+									"arn:aws:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:*",
+									{
+										"region": {
+											"Ref": "AWS::Region"
+										},
+										"account": {
+											"Ref": "AWS::AccountId"
+										},
+										"lambda": {
+											"Ref": "LambdaFunction"
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"dynamo2feaf2abTriggerPolicy": {
+			"DependsOn": [
+				"LambdaExecutionRole"
+			],
+			"Type": "AWS::IAM::Policy",
+			"Properties": {
+				"PolicyName": "lambda-trigger-policy",
+				"Roles": [
+					{
+						"Ref": "LambdaExecutionRole"
+					}
+				],
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+							"Effect": "Allow",
+							"Action": [
+								"dynamodb:DescribeStream",
+								"dynamodb:GetRecords",
+								"dynamodb:GetShardIterator",
+								"dynamodb:ListStreams"
+							],
+							"Resource": [
+								{
+									"Ref": "storagedynamo2feaf2abStreamArn"
+								}
+							]
+						}
+					]
+				}
+			}
+		},
+		"dynamo2feaf2abTrigger": {
+			"Type": "AWS::Lambda::EventSourceMapping",
+			"DependsOn": [
+				"dynamo2feaf2abTriggerPolicy"
+			],
+			"Properties": {
+				"BatchSize": 100,
+				"Enabled": true,
+				"EventSourceArn": {
+					"Ref": "storagedynamo2feaf2abStreamArn"
+				},
+				"FunctionName": {
+					"Fn::GetAtt": [
+						"LambdaFunction",
+						"Arn"
+					]
+				},
+				"StartingPosition": "LATEST"
+			}
+		}
+	},
+	"Outputs": {
+		"Name": {
+			"Value": {
+				"Ref": "LambdaFunction"
+			}
+		},
+		"Arn": {
+			"Value": {
+				"Fn::GetAtt": [
+					"LambdaFunction",
+					"Arn"
+				]
+			}
+		},
+		"Region": {
+			"Value": {
+				"Ref": "AWS::Region"
+			}
+		},
+		"LambdaExecutionRole": {
+			"Value": {
+				"Ref": "LambdaExecutionRole"
+			}
+		}
+	}
 }
