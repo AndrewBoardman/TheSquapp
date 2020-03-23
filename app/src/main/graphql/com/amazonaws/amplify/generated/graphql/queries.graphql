@@ -27,6 +27,7 @@ query ListUsers(
 query GetFriend($id: ID!) {
   getFriend(id: $id) {
     id
+    text
   }
 }
 query ListFriends(
@@ -37,6 +38,7 @@ query ListFriends(
   listFriends(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      text
     }
     nextToken
   }
@@ -44,6 +46,7 @@ query ListFriends(
 query GetChat($id: ID!) {
   getChat(id: $id) {
     id
+    text
   }
 }
 query ListChats(
@@ -54,6 +57,7 @@ query ListChats(
   listChats(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      text
     }
     nextToken
   }

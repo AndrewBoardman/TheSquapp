@@ -56,4 +56,32 @@
         android:onClick="cPhSavRet"
         />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/choose_photo_savereturn"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="70dp"
+        android:background="@drawable/btn_signup"
+        android:text="TEST"
+        android:textColor="@color/colorAccent"
+        android:id="@+id/test_btn"
+        android:onClick="test"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/test_btn"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="70dp"
+        android:background="@drawable/btn_signup"
+        android:text="UPDATE"
+        android:textColor="@color/colorAccent"
+        android:id="@+id/test_btn_update"
+        android:onClick="update"
+        />
+
 </RelativeLayout>

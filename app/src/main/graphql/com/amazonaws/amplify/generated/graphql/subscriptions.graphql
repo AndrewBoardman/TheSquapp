@@ -29,31 +29,37 @@ subscription OnDeleteUser {
 subscription OnCreateFriend {
   onCreateFriend {
     id
+    text
   }
 }
 subscription OnUpdateFriend {
   onUpdateFriend {
     id
+    text
   }
 }
 subscription OnDeleteFriend {
   onDeleteFriend {
     id
+    text
   }
 }
 subscription OnCreateChat {
   onCreateChat {
     id
+    text
   }
 }
 subscription OnUpdateChat {
   onUpdateChat {
     id
+    text
   }
 }
 subscription OnDeleteChat {
   onDeleteChat {
     id
+    text
   }
 }
 subscription OnCreateMessage {

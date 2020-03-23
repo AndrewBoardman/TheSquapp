@@ -8,10 +8,12 @@ type user @model {
 
 type friend @model {
   id: ID!
+  text: String
 }
 
 type chat @model {
   id: ID!
+  text: String
 }
 
 type message @model {

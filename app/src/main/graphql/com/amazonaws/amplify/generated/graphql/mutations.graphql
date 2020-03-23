@@ -41,6 +41,7 @@ mutation CreateFriend(
 ) {
   createFriend(input: $input, condition: $condition) {
     id
+    text
   }
 }
 mutation UpdateFriend(
@@ -49,6 +50,7 @@ mutation UpdateFriend(
 ) {
   updateFriend(input: $input, condition: $condition) {
     id
+    text
   }
 }
 mutation DeleteFriend(
@@ -57,6 +59,7 @@ mutation DeleteFriend(
 ) {
   deleteFriend(input: $input, condition: $condition) {
     id
+    text
   }
 }
 mutation CreateChat(
@@ -65,6 +68,7 @@ mutation CreateChat(
 ) {
   createChat(input: $input, condition: $condition) {
     id
+    text
   }
 }
 mutation UpdateChat(
@@ -73,6 +77,7 @@ mutation UpdateChat(
 ) {
   updateChat(input: $input, condition: $condition) {
     id
+    text
   }
 }
 mutation DeleteChat(
@@ -81,6 +86,7 @@ mutation DeleteChat(
 ) {
   deleteChat(input: $input, condition: $condition) {
     id
+    text
   }
 }
 mutation CreateMessage(

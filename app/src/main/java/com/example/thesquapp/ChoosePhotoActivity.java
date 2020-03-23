@@ -15,8 +15,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.amazonaws.amplify.generated.graphql.CreateChatMutation;
 import com.amazonaws.amplify.generated.graphql.ListUsersQuery;
 import com.amazonaws.amplify.generated.graphql.UpdateUserMutation;
+import com.amazonaws.mobile.client.AWSMobileClient;
+import com.amazonaws.mobile.client.Callback;
+import com.amazonaws.mobile.client.UserStateDetails;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
@@ -28,6 +32,7 @@ import java.io.File;
 
 import javax.annotation.Nonnull;
 
+import type.CreateChatInput;
 import type.UpdateUserInput;
 
 public class ChoosePhotoActivity extends AppCompatActivity {
@@ -41,21 +46,24 @@ public class ChoosePhotoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_photo);
 
-       /* Button upsave = findViewById(R.id.choose_photo_savereturn);
-        upsave.setOnClickListener(new View.OnClickListener() {
+        AWSMobileClient.getInstance().initialize(getApplicationContext(), new Callback<UserStateDetails>() {
 
-            @Override
-            public void onClick(View view) {
-                uploadAndSave();
-            }
-        }); */
+                    @Override
+                    public void onResult(UserStateDetails userStateDetails) {
+                    }
+                    @Override
+                    public void onError(Exception e) {
+                        Log.e("INIT", "Initialization error.", e);
+                    }
+                }
+        );
     }
 
-    public void choosePhotoBtn(View view){
+    public void choosePhotoBtn(View view) {
         choosePhoto();
     }
 
-   public void cPhSavRet(View view){
+    public void cPhSavRet(View view) {
         uploadAndSave();
     }
 
@@ -140,7 +148,7 @@ public class ChoosePhotoActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(int id, long bytesCurrent, long bytesTotal) {
                 float percentDonef = ((float) bytesCurrent / (float) bytesTotal) * 100;
-                int percentDone = (int)percentDonef;
+                int percentDone = (int) percentDonef;
 
                 Log.d(TAG, "ID:" + id + " bytesCurrent: " + bytesCurrent
                         + " bytesTotal: " + bytesTotal + " " + percentDone + "%");
@@ -164,17 +172,20 @@ public class ChoosePhotoActivity extends AppCompatActivity {
 
     private UpdateUserInput getUpdateUserInput() {
         //final String name = ((EditText) findViewById(R.id.editTxt_name)).getText().toString();
-       // final String description = ((EditText) findViewById(R.id.editText_description)).getText().toString();
+        // final String description = ((EditText) findViewById(R.id.editText_description)).getText().toString();
 
-        if (photoPath != null && !photoPath.isEmpty()){
+        if (photoPath != null && !photoPath.isEmpty()) {
             return UpdateUserInput.builder()
-                    //.name(name)
+                    //.id(AWSMobileClient.getInstance().getUsername())
+                    .username("bob")
                     //.description(description)
-                    .photo(getS3Key(photoPath)).build();
+                    //.photo(getS3Key(photoPath))
+                    .build();
         } else {
             return UpdateUserInput.builder()
-                    //.name(name)
-                   // .description(description)
+                    .username("bob")
+                    //.id(AWSMobileClient.getInstance().getUsername())
+                    // .description(description)
                     .build();
         }
     }
@@ -238,7 +249,7 @@ public class ChoosePhotoActivity extends AppCompatActivity {
                 });
     } */
 
-    private void uploadAndSave(){
+    private void uploadAndSave() {
 
         if (photoPath != null) {
             // For higher Android levels, we need to check permission at runtime
@@ -257,4 +268,50 @@ public class ChoosePhotoActivity extends AppCompatActivity {
             save();
         }
     }
+
+    public void test(View view) {
+
+        Toast.makeText(ChoosePhotoActivity.this, "you challenged penis " + MyAdapter.challengeeName, Toast.LENGTH_LONG).show();
+
+        CreateChatInput input = CreateChatInput.builder()
+                .text("string")
+                .build();
+
+        CreateChatMutation addChallengeMutation = CreateChatMutation.builder()
+                .input(input)
+                .build();
+        ClientFactory.appSyncClient().mutate(addChallengeMutation).enqueue(mutateCallback2);
+    }
+
+    private GraphQLCall.Callback<CreateChatMutation.Data> mutateCallback2 = new GraphQLCall.Callback<CreateChatMutation.Data>() {
+        @Override
+        public void onResponse(@Nonnull final Response<CreateChatMutation.Data> response) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                }
+            });
+        }
+
+        @Override
+        public void onFailure(@Nonnull final ApolloException e) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.e("", "Failed to perform AddPetMutation", e);
+                }
+            });
+        }
+
+    };
+
+    public void update(View view){
+
+
+
+    }
+
 }
+
+
+
