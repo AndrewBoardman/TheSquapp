@@ -15,12 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.amazonaws.amplify.generated.graphql.CreateChatMutation;
 import com.amazonaws.amplify.generated.graphql.ListUsersQuery;
 import com.amazonaws.amplify.generated.graphql.UpdateUserMutation;
 import com.amazonaws.mobile.client.AWSMobileClient;
-import com.amazonaws.mobile.client.Callback;
-import com.amazonaws.mobile.client.UserStateDetails;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
@@ -32,7 +29,6 @@ import java.io.File;
 
 import javax.annotation.Nonnull;
 
-import type.CreateChatInput;
 import type.UpdateUserInput;
 
 public class ChoosePhotoActivity extends AppCompatActivity {
@@ -46,17 +42,7 @@ public class ChoosePhotoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_photo);
 
-        AWSMobileClient.getInstance().initialize(getApplicationContext(), new Callback<UserStateDetails>() {
-
-                    @Override
-                    public void onResult(UserStateDetails userStateDetails) {
-                    }
-                    @Override
-                    public void onError(Exception e) {
-                        Log.e("INIT", "Initialization error.", e);
-                    }
-                }
-        );
+        ClientFactory.init(this);
     }
 
     public void choosePhotoBtn(View view) {
@@ -74,8 +60,6 @@ public class ChoosePhotoActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    //Toast.makeText(AddPetActivity.this, "Added pet", Toast.LENGTH_SHORT).show();
-                    //AddPetActivity.this.finish();
                 }
             });
         }
@@ -85,9 +69,7 @@ public class ChoosePhotoActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Log.e("", "Failed to perform AddPetMutation", e);
-                    //Toast.makeText(AddPetActivity.this, "Failed to add pet", Toast.LENGTH_SHORT).show();
-                    //AddPetActivity.this.finish();
+                    Log.e("", "Failed to perform UpdateUserMutation", e);
                 }
             });
         }
@@ -166,26 +148,19 @@ public class ChoosePhotoActivity extends AppCompatActivity {
                     }
                 });
             }
-
         });
     }
 
     private UpdateUserInput getUpdateUserInput() {
-        //final String name = ((EditText) findViewById(R.id.editTxt_name)).getText().toString();
-        // final String description = ((EditText) findViewById(R.id.editText_description)).getText().toString();
 
         if (photoPath != null && !photoPath.isEmpty()) {
             return UpdateUserInput.builder()
-                    //.id(AWSMobileClient.getInstance().getUsername())
-                    .username("bob")
-                    //.description(description)
-                    //.photo(getS3Key(photoPath))
+                    .id(AWSMobileClient.getInstance().getUsername())
+                    .photo(getS3Key(photoPath))
                     .build();
         } else {
             return UpdateUserInput.builder()
-                    .username("bob")
-                    //.id(AWSMobileClient.getInstance().getUsername())
-                    // .description(description)
+                    .id(AWSMobileClient.getInstance().getUsername())
                     .build();
         }
     }
@@ -261,56 +236,12 @@ public class ChoosePhotoActivity extends AppCompatActivity {
                         new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                         1);
             }
-
             // Upload a photo first. We will only call save on its successful callback.
             uploadWithTransferUtility(photoPath);
         } else {
             save();
         }
     }
-
-    public void test(View view) {
-
-        Toast.makeText(ChoosePhotoActivity.this, "you challenged penis " + MyAdapter.challengeeName, Toast.LENGTH_LONG).show();
-
-        CreateChatInput input = CreateChatInput.builder()
-                .text("string")
-                .build();
-
-        CreateChatMutation addChallengeMutation = CreateChatMutation.builder()
-                .input(input)
-                .build();
-        ClientFactory.appSyncClient().mutate(addChallengeMutation).enqueue(mutateCallback2);
-    }
-
-    private GraphQLCall.Callback<CreateChatMutation.Data> mutateCallback2 = new GraphQLCall.Callback<CreateChatMutation.Data>() {
-        @Override
-        public void onResponse(@Nonnull final Response<CreateChatMutation.Data> response) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                }
-            });
-        }
-
-        @Override
-        public void onFailure(@Nonnull final ApolloException e) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Log.e("", "Failed to perform AddPetMutation", e);
-                }
-            });
-        }
-
-    };
-
-    public void update(View view){
-
-
-
-    }
-
 }
 
 

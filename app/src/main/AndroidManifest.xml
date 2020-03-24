@@ -16,7 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChoosePhotoActivity"></activity>
+        <activity android:name=".ChoosePhotoActivity"
+            android:launchMode="singleTask"
+            android:parentActivityName=".StartScreen"/>
         <activity android:name=".AuthCheck">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
