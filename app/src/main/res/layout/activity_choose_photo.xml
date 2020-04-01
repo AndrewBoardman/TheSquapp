@@ -56,4 +56,28 @@
         android:onClick="cPhSavRet"
         />
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/choose_photo_savereturn"
+        android:id="@+id/text_test"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="70dp"
+        android:layout_centerHorizontal="true"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/text_test"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="70dp"
+        android:background="@drawable/btn_signup"
+        android:text="TEST THING"
+        android:textColor="@color/colorAccent"
+        android:id="@+id/test_thing"
+        android:onClick="cTestThing"
+        />
+
 </RelativeLayout>

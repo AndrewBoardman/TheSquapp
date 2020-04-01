@@ -19,7 +19,7 @@ import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
-    private List<ListUsersQuery.Item> mData = new ArrayList<>();;
+    private List<ListUsersQuery.Item> mData = new ArrayList<>();
     private Context context;
     private LayoutInflater mInflater;
     private int selected_position = -1;
@@ -29,9 +29,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     MyAdapter(Context context) {
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
-
     }
-
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -72,7 +70,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 notifyDataSetChanged();
             }
         });
-
     };
 
     // total number of rows
@@ -99,7 +96,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             linearLayout = (LinearLayout) itemView.findViewById(R.id.linearLayout);
         }
 
-       public void bindData(ListUsersQuery.Item item) {
+        public void bindData(ListUsersQuery.Item item) {
             if (!item.id().equals(AWSMobileClient.getInstance().getUsername())){
                 txt_username.setText(item.id());
                 txt_id.setText(item.email());
@@ -107,7 +104,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 itemView.setVisibility(View.GONE);
                 itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
             }
-
         }
     }
 }

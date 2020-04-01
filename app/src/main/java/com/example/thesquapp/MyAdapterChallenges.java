@@ -26,7 +26,7 @@ import static com.amazonaws.mobile.auth.core.internal.util.ThreadUtils.runOnUiTh
 
 public class MyAdapterChallenges extends RecyclerView.Adapter<MyAdapterChallenges.ViewHolder> {
 
-    private List<ListChallengesQuery.Item> mData = new ArrayList<>();;
+    private List<ListChallengesQuery.Item> mData = new ArrayList<>();
     private Context context;
     private LayoutInflater mInflater;
     private int selected_position = -1;

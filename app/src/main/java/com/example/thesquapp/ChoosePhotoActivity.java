@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +20,8 @@ import androidx.core.content.ContextCompat;
 import com.amazonaws.amplify.generated.graphql.ListUsersQuery;
 import com.amazonaws.amplify.generated.graphql.UpdateUserMutation;
 import com.amazonaws.mobile.client.AWSMobileClient;
+import com.amazonaws.mobileconnectors.appsync.AWSAppSyncClient;
+import com.amazonaws.mobileconnectors.appsync.fetcher.AppSyncResponseFetchers;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
@@ -26,6 +30,8 @@ import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Nonnull;
 
@@ -36,6 +42,10 @@ public class ChoosePhotoActivity extends AppCompatActivity {
     private static int RESULT_LOAD_IMAGE = 1;
     private String photoPath;
     public static final String TAG = "Photo";
+    private ImageView profilePic;
+    private EditText textTest;
+    private AWSAppSyncClient mAWSAppSyncClient;
+    private List<ListUsersQuery.Item> mUserD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -242,7 +252,59 @@ public class ChoosePhotoActivity extends AppCompatActivity {
             save();
         }
     }
+
+  /*  class imageView extends ImageView{
+
+        imageView(View itemView)
+
+    }
+
+    public void bind(ListUsersQuery.Item item){
+       //if (item.id().equals(AWSMobileClient.getInstance().getUsername())){
+            profilePic=(ImageView) findViewById(R.id.chooseProfilePic);
+            profilePic.setImageDrawable(item.photo(getS3Key(photoPath)));
+
+       // }
+    } */
+
+    public void cTestThing(View view) {
+
+        textTest = (EditText) findViewById(R.id.text_test);
+        query();
+    }
+
+    private void query(){
+
+        ClientFactory.appSyncClient().query(ListUsersQuery.builder().build())
+                .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
+                .enqueue(queryCallback1);
+    }
+
+    private GraphQLCall.Callback<ListUsersQuery.Data> queryCallback1 = new GraphQLCall.Callback<ListUsersQuery.Data>() {
+        @Override
+        public void onResponse(@Nonnull Response<ListUsersQuery.Data> response) {
+
+            mUserD = new ArrayList<>(response.data().listUsers().items());
+
+            textTest.setText(mUserD.get(2).name());
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    //textTest.setText(mUserD.get(2).name());
+                }
+            });
+        }
+
+        @Override
+        public void onFailure(@Nonnull ApolloException e) {
+            Log.e(TAG, e.toString());
+        }
+    };
+
 }
+
+
 
 
 

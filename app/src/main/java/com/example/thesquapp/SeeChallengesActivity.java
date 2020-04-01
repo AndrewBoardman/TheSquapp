@@ -49,6 +49,7 @@ public class SeeChallengesActivity extends AppCompatActivity {
     }
 
     public void query(){
+
         ClientFactory.appSyncClient().query(ListChallengesQuery.builder().build())
                 .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
                 .enqueue(queryCallback);
@@ -76,4 +77,5 @@ public class SeeChallengesActivity extends AppCompatActivity {
             Log.e(TAG, e.toString());
         }
     };
+
 }
